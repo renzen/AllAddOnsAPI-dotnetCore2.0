@@ -1,0 +1,14 @@
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\bin\Debug\netcoreapp2.1\AllAddOnsAPI.deps.json
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\bin\Debug\netcoreapp2.1\AllAddOnsAPI.runtimeconfig.json
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\bin\Debug\netcoreapp2.1\AllAddOnsAPI.runtimeconfig.dev.json
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\bin\Debug\netcoreapp2.1\AllAddOnsAPI.dll
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\bin\Debug\netcoreapp2.1\AllAddOnsAPI.pdb
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.csprojAssemblyReference.cache
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.csproj.CoreCompileInputs.cache
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.RazorAssemblyInfo.cache
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.RazorAssemblyInfo.cs
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.AssemblyInfoInputs.cache
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.AssemblyInfo.cs
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.RazorTargetAssemblyInfo.cache
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.dll
+c:\Users\RENZENF\Desktop\AllAddOnsAPI\obj\Debug\netcoreapp2.1\AllAddOnsAPI.pdb
