@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +16,7 @@ using AllAddOnsAPI.Models;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization; 
+using Microsoft.IdentityModel.Tokens;
 
 namespace AllAddOnsAPI
 {
@@ -26,10 +28,39 @@ namespace AllAddOnsAPI
         }
 
         public IConfiguration Configuration { get; }
+        public object Encoding { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+        //Auth
+        //byte[] toEncrypt = System.Text.Encoding.Unicode.GetBytes(yawe);
+        // string yawe ="hfhfhfhlhfklhflhflhsklhflkshflhsfhlkshfklhfkhslfhlshfklshflkhsklfhslkhflshfklh";
+        // var key = new SymmetricSecurityKey(System.Text.Encoding.Unicode.GetBytes(yawe));
+
+         // key
+         string securityKey ="my_super_long_secutiry_key_for_token_validation_project_all_add_on";
+         //symmetric key
+         var symmetricKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(securityKey));
+        
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        // what to validate
+                        ValidateIssuer =  true,
+                        ValidateAudience = true,
+                        ValidateIssuerSigningKey = true,
+                        // setup data
+                        ValidIssuer = "renzen.net",
+                        ValidAudience = "readers",
+                        IssuerSigningKey = symmetricKey,
+                    };
+            });
+            //Auth
+ 
 
             services.AddDbContext<addOnContext>(db => db.UseSqlServer(Configuration.GetConnectionString("HWPOD")));
             services
@@ -52,6 +83,9 @@ namespace AllAddOnsAPI
             app.UseCors(c=> c.AllowAnyHeader()
             .AllowAnyMethod().AllowAnyOrigin()
             .AllowCredentials());
+            //Auth
+            app.UseAuthentication();
+            //Auth
             app.UseMvc();
 
             // else

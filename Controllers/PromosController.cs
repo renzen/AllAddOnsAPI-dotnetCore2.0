@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AllAddOnsAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
+    
+      
 
 namespace AllAddOnsAPI.Controllers
 {
-       
-       
+    [Authorize (Roles ="Administrator")]
         public class PromosController : Controller
     {
-
         private readonly addOnContext  _context;
 
         public PromosController(addOnContext context)

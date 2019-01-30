@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AllAddOnsAPI.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace AllAddOnsAPI.Controllers
 {
        
-       
+      [Authorize]
         public class AddOnController : Controller
     {
 
@@ -22,8 +22,9 @@ namespace AllAddOnsAPI.Controllers
         }
 
           // GET api/values
-         [HttpGet]
+        [HttpGet]
         [Route("api/AllAddOns")]
+        
          public async Task<IActionResult> GetAll()  {  
             // fetch all contact records  
             var AddOnlist = await _context.AllAddOns.ToListAsync(); 

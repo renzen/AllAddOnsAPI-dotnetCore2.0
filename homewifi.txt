@@ -1,0 +1,244 @@
+@using PLDTPrepaidWIFI.domain
+@model PLDTPrepaidWIFI.web.BalanceModel
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("div.modal-dialog").addClass("modal-lg");
+        $("div.modal-header").removeClass("no-header");
+        document.getElementById("form-addon").reset();
+        $('#availmentModalBodypop').modal('hide');
+    });
+
+    function closeModal() {
+        $("#availmentModalpop3").fadeOut().removeClass("active");
+        $(".modal-backdrop.in").fadeOut();
+        $(".resetAddonspop2").fadeOut();
+    }
+
+    function closeModal2() {
+        $(".img2").show();
+        $(".img1").hide();
+        $("#availmentModalpop2").fadeOut().removeClass("active");
+        $(".resetAddonspop2").fadeOut();
+        $(".modal-backdrop.fade.in").addClass('display');
+      //  $("#availmentModalpop3").fadeOut();
+      //  $(".modal-backdrop.in").fadeOut();
+        
+    }
+
+
+    function closeModal3() {
+        $("#availmentModalpop").fadeOut().removeClass("active");
+        $(".modal-backdrop.in").fadeOut();
+        $(".resetAddonspop").fadeOut();
+        $(".availmentModalpop3").fadeOut();
+        
+    }
+
+</script>
+
+<style>
+   
+</style>
+
+@if (@Model.IsSuccess)
+{
+    if (Model.BrandType == "Prepaid")
+    {
+        
+        
+
+        <div class="balance prepaid">
+            @if (Model.PrepaidBalances.Code == "0")
+            {
+                if (Model.PrepaidBalances.PrepaidBalance.Count > 0)
+                {
+                    foreach (var item in Model.PrepaidBalances.PrepaidBalance)
+                    {
+                        if (item.Label == "LOAD BAL")
+                        {
+                            <div class="row prepaid">
+                                <div class="col-xs-12 col-sm-6 b-label">
+                                    <p>LOAD BALANCE</p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 b-value">
+                                    <p class="value">@item.Value</p>
+                                    @if (!string.IsNullOrEmpty(item.ExpiryDate))
+                                    {
+                                        <p class="expiration">Expires on @item.ExpiryDate</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+						@* check keyword *@
+                        else if (item.Label == "HOME BOOST OPEN ACCESS MB")
+                        {
+										
+                            <div class="row prepaid">
+                                <div class="col-xs-12 col-sm-6 b-label">
+                                    <p>@item.Label</p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 b-value">
+                                    <p class="value">@item.Value</p>
+                                    @if (!string.IsNullOrEmpty(item.ExpiryDate))
+                                    {
+                                        <p class="expiration">Expires on @item.ExpiryDate</p>
+                                    }
+
+                                    @* check date before 2018 12 26 *@
+                                    @{
+                                    var curdate = DateTime.Now;
+                                    var lastdate = new DateTime(2018, 12, 25);
+                                    var warningdate = new DateTime(2018, 12, 25, 23, 00, 00);
+                                    DateTime dateOfBegin = new DateTime(2012, 8, 1);
+                                    float size = float.Parse(item.Value);
+                                    float minimumSize = 1;
+                                    }
+
+                                    @* check if the current date is before 12/26/2018*@
+                                    @if (curdate < lastdate)
+                                    {
+                                        @* check if remaining data is 0*@
+                                       
+                                      
+											<div class="modal-backdrop fade in"></div>
+											<div id="availmentModalpop3" class="modal fade in" role="dialog" style="display: block">
+												<div id="availDiv" class="modal-dialog modal-lg">
+													<!-- Modal content-->
+													<div id="availmentModalContentpop" class="modal-content">
+
+														<div id="availmentModalBodypop" class="modal-body" style="padding: 0px !important">
+
+															<div id="addons-list">
+																<form action="/HomeWifiLoad/Availment/_ViewAvailment" id="form-addon" method="post">
+																	<input name="" type="hidden" value="">
+																</form>
+																<div class="addons-container col-xs-12 ">
+																	<div class="addons col-xs-12" style="padding: 0px !important">
+
+																		<div class="desc col-xs-12" style="padding: 0px !important">
+                                                                            @* Going to expire(12/25/2018 11:00PM onwards *@
+													 @if (curdate > warningdate) 
+                                                     {
+                                                      <div class="img1">
+                                                      <img src="~/Assets/images/Holideals/SoonExpire.jpg">
+                                                      <div style="text-align: center; height: 0;">
+                                                            
+                                                          @if (size < minimumSize)
+                                                          {
+                                                               <input type="button" id="resetAddonspop" onclick="closeModal2()" value="CLICK HERE TO ACCESS." data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                         }
+                                                          else
+                                                          {
+                                                              
+                                                          <input type="button" id="resetAddonspop3" onclick="closeModal()" value="CLICK HERE TO ACCESS" data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                         
+                                                          }
+                                                           </div>
+                                                       </div>
+                  
+                                                     
+                                                         <div class="img2" style="display:none">       
+                                                            <img src="~/Assets/images/Holideals/1GbLeft.jpg">
+                                                            <div style="text-align: center; height: 0;">
+													        <input type="button" id="resetAddonspop3" onclick="closeModal()" value="CLICK HERE TO ACCESS" data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                            </div>
+                                                      </div>        
+                                                                                             
+                                                      }
+                                                      else
+                                                      {
+                  
+                                                      if (size >= minimumSize)
+                                                      {
+                                                             <div class = "Primary-pop">
+												            <img src="~/Assets/images/Holideals/10GBNotif.jpg">
+                  
+												            <div style="text-align: center; height: 0;">
+													        <input type="button" id="resetAddonspop3" onclick="closeModal()" value="CLICK HERE TO ACCESS" data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                           </div>
+                                                            </div>
+                                                      }
+                                                      else
+                                                      {
+													        <div class="five-Gleft">                                        
+                                                            <img src="~/Assets/images/Holideals/1GbLeft.jpg">
+                                                            <div style="text-align: center; height: 0;">
+													        <input type="button" id="resetAddonspop3" onclick="closeModal()" value="CLICK HERE TO ACCESS" data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                            </div>
+                                                                </div>
+                                                              }
+                                                          }   
+                                                     
+                                                                                                       
+                                                    
+                                                     @if (size == 43008)
+                                                     {
+                                                      <div class="no-balance">
+                                                     <img src="/Assets/images/Holideals/NoBalance.jpg">                            
+                                                     <div style="text-align: center; height: 0;">
+                                                     <input type="button" id="resetAddonspop" onclick="closeModal()" value="CLICK HERE TO ACCESS" data-dismiss="modal" class="btn blue" style="padding: 6px 12px; background-color: #fff; border-radius: 10px; color: #000; text-transform: uppercase; width: 212px; position: relative; margin-top: -140px;">
+                                                     </div>
+                                                          <script type="text/javascript">
+                                                              $(document).ready(function () {
+                                                                  $('.five-Gleft, .Primary-pop').hide();
+                                                              });
+                                                         </script>
+                                                     </div>
+                                                     }
+
+                                                    
+                                                   
+																				
+																			</div>
+
+																		</div>
+																	</div>
+																	<div class="clear"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row prepaid">
+                                <div class="col-xs-12 col-sm-6 b-label">
+                                    <p>@item.Label</p>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 b-value">
+                                    <p class="value">@item.Value</p>
+                                    @if (!string.IsNullOrEmpty(item.ExpiryDate))
+                                    {
+                                        <p class="expiration">Expires on @item.ExpiryDate</p>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+
+
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-warning">Data is currently not retrievable. You may refresh the dashboard.</div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-warning">Data is currently not retrievable. You may refresh the dashboard.</div>
+            }
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-warning">Data is currently not retrievable. You may refresh the dashboard.</div>
+
+}
+
+
